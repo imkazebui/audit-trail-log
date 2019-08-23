@@ -1,14 +1,8 @@
 import React from "react";
 import { Table, Tag, Avatar } from "antd";
 
+import { mapColors } from "./constants";
 import { data } from "./data";
-
-const mapColors = {
-  Insert: "geekblue",
-  Update: "gold",
-  Delete: "volcano",
-  Access: "geekblue"
-};
 
 const columns = [
   {

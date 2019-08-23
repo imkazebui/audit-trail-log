@@ -1,8 +1,13 @@
 import React from "react";
 import { Layout, Menu, Breadcrumb, Icon, BackTop } from "antd";
 import "antd/dist/antd.css";
-
+import "codemirror/lib/codemirror.css";
+import "codemirror/theme/material.css";
+import "codemirror/mode/javascript/javascript";
+import "codemirror/addon/selection/mark-selection";
+import "codemirror/addon/search/searchcursor";
 import "./App.css";
+
 import List from "./List";
 import { Info } from "./Info";
 
@@ -16,7 +21,6 @@ class App extends React.Component {
   };
 
   onCollapse = collapsed => {
-    console.log(collapsed);
     this.setState({ collapsed });
   };
 

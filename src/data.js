@@ -1,18 +1,5 @@
 import faker from "faker";
 
-const list = {
-  id: 1,
-  time: Date.now(), // timestamp
-  type: "Insert", // Insert, Update, Delete, Access
-  userIP: "192.168.1.1", // user ip address
-  userName: "Phong",
-  userAvatar: "",
-  userType: "admin", // admin, user, guest, operator, ...
-  valueId: "1", //
-  valueEntity: "offers", // offers, preferences, advertiser, ... // if type === 'access' ==> valueEntity = 'login/log out'
-  description: "system generate"
-};
-
 const type = ["Insert", "Update", "Delete", "Access"];
 const userType = ["Admin", "User", "Operator"];
 const listEntity = ["offers", "preferences", "advertiser"];
@@ -40,12 +27,17 @@ const dataGenerator = () => {
 
 export const item = [
   {
-    time: 111111113,
-    type: "Delete" // Insert, Update, Delete
+    time: Date.now(),
+    type: "Delete", // Insert, Update, Delete
+    userName: "Phu",
+    userType: "User",
+    userAvatar: faker.image.avatar()
   },
   {
-    time: 111111112,
+    time: Date.now(),
     type: "Update", // Insert, Update, Delete
+    userName: "Phu",
+    userType: "User",
     valueData: {
       name: "Phu",
       birthday: "01/01/2000",
@@ -53,9 +45,12 @@ export const item = [
     }
   },
   {
-    time: 111111111,
+    time: Date.now(),
     type: "Insert", // Insert, Update, Delete
-    value: {
+    userName: "Admin",
+    userType: "Admin",
+    userAvatar: faker.image.avatar(),
+    valueData: {
       name: "Phong",
       birthday: "01/01/2000",
       address: "HCM"

@@ -1,37 +1,41 @@
 import React from "react";
-import { Drawer, Button, Timeline } from "antd";
+import { Drawer, Button, Timeline, Card } from "antd";
+import { UnControlled as CodeMirror } from "react-codemirror2";
+
+import { mapColors } from "./constants";
+import { item } from "./data";
+
+const checkDiff = (current, past) => {};
 
 export const Info = ({ toggle, isOpen }) => (
   <Drawer title="View xxx" width={720} onClose={toggle} visible={isOpen}>
     <Timeline>
-      <Timeline.Item color="green">
-        Create a services site 2015-09-01
-      </Timeline.Item>
-      <Timeline.Item color="green">
-        Create a services site 2015-09-01
-      </Timeline.Item>
-      <Timeline.Item color="red">
-        <p>Solve initial network problems 1</p>
-        <p>Solve initial network problems 2</p>
-        <p>Solve initial network problems 3 2015-09-01</p>
-      </Timeline.Item>
-      <Timeline.Item>
-        <p>Technical testing 1</p>
-        <p>Technical testing 2</p>
-        <p>Technical testing 3 2015-09-01</p>
-      </Timeline.Item>
-      <Timeline.Item color="gray">
-        <p>Technical testing 1</p>
-        <p>Technical testing 2</p>
-        <p>Technical testing 3 2015-09-01</p>
-      </Timeline.Item>
-      <Timeline.Item color="gray">
-        <p>Technical testing 1</p>
-        <p>Technical testing 2</p>
-        <p>Technical testing 3 2015-09-01</p>
-      </Timeline.Item>
+      {item.map((it, idx) => (
+        <Timeline.Item color={mapColors[it.type]} key={idx}>
+          <Card
+            title={`${it.type} - ${it.time} - ${it.userName}`}
+            extra={<a href="#">Copy</a>}
+          >
+            {it.type !== "Delete" && it.type !== "Access" && (
+              <CodeMirror
+                value={JSON.stringify(it.valueData, null, "\t") || ""}
+                options={{
+                  mode: {
+                    name: "javascript",
+                    json: true
+                  },
+                  theme: "material",
+                  lineNumbers: true,
+                  readOnly: true,
+                  styleActiveLine: true,
+                  lineWrapping: true
+                }}
+              />
+            )}
+          </Card>
+        </Timeline.Item>
+      ))}
     </Timeline>
-    ,
     <div
       style={{
         position: "absolute",
