@@ -25,13 +25,24 @@ const dataGenerator = () => {
   return list.reverse();
 };
 
-export const item = [
+export const items = [
   {
     time: Date.now(),
     type: "Delete", // Insert, Update, Delete
     userName: "Phu",
     userType: "User",
     userAvatar: faker.image.avatar()
+  },
+  {
+    time: Date.now(),
+    type: "Update", // Insert, Update, Delete
+    userName: "Phu",
+    userType: "User",
+    valueData: {
+      name: "Phu",
+      birthday: "01/02/2000",
+      address: "HaNoi"
+    }
   },
   {
     time: Date.now(),

@@ -1,41 +1,70 @@
 import React from "react";
 import { Drawer, Button, Timeline, Card } from "antd";
-import { UnControlled as CodeMirror } from "react-codemirror2";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { dark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 import { mapColors } from "./constants";
-import { item } from "./data";
+import { items } from "./data";
 
-const checkDiff = (current, past) => {};
+const checkDiff = (current, past) => {
+  let diffLines = [];
+
+  if (!past || !current) {
+    return diffLines;
+  }
+
+  Object.keys(current).map((key, idx) =>
+    current[key] !== past[key] ? diffLines.push(idx) : null
+  );
+
+  return diffLines;
+};
+
+const renderCodeDiff = datas => {
+  let ui = [];
+
+  datas.forEach((it, idx) => {
+    const diffLines = checkDiff(it.valueData, (datas[idx + 1] || {}).valueData);
+    console.log("diff", diffLines);
+    const el = (
+      <Timeline.Item color={mapColors[it.type]} key={idx}>
+        <Card
+          title={`${it.type} - ${it.time} - ${it.userName}`}
+          extra={<a href="#">Copy</a>}
+        >
+          {it.type !== "Delete" && it.type !== "Access" && (
+            <SyntaxHighlighter
+              language="json"
+              style={dark}
+              wrapLines={true}
+              lineProps={lineNumber => {
+                let style = { display: "block" };
+
+                if (diffLines.includes(lineNumber - 2)) {
+                  style.backgroundColor = "#dbffdb";
+                }
+
+                return {
+                  style
+                };
+              }}
+            >
+              {JSON.stringify(it.valueData, null, "\t") || ""}
+            </SyntaxHighlighter>
+          )}
+        </Card>
+      </Timeline.Item>
+    );
+
+    ui.push(el);
+  });
+
+  return ui;
+};
 
 export const Info = ({ toggle, isOpen }) => (
   <Drawer title="View xxx" width={720} onClose={toggle} visible={isOpen}>
-    <Timeline>
-      {item.map((it, idx) => (
-        <Timeline.Item color={mapColors[it.type]} key={idx}>
-          <Card
-            title={`${it.type} - ${it.time} - ${it.userName}`}
-            extra={<a href="#">Copy</a>}
-          >
-            {it.type !== "Delete" && it.type !== "Access" && (
-              <CodeMirror
-                value={JSON.stringify(it.valueData, null, "\t") || ""}
-                options={{
-                  mode: {
-                    name: "javascript",
-                    json: true
-                  },
-                  theme: "material",
-                  lineNumbers: true,
-                  readOnly: true,
-                  styleActiveLine: true,
-                  lineWrapping: true
-                }}
-              />
-            )}
-          </Card>
-        </Timeline.Item>
-      ))}
-    </Timeline>
+    <Timeline>{renderCodeDiff(items)}</Timeline>
     <div
       style={{
         position: "absolute",

@@ -4,12 +4,11 @@
   "private": true,
   "dependencies": {
     "antd": "^3.22.0",
-    "codemirror": "^5.48.4",
     "faker": "^4.1.0",
     "react": "^16.9.0",
-    "react-codemirror2": "^6.0.0",
     "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1"
+    "react-scripts": "3.1.1",
+    "react-syntax-highlighter": "^11.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
