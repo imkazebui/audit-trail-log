@@ -65,27 +65,8 @@ const ItemTableViewMode = ({ diffLines, data }) => (
 );
 
 export default class TimeLine extends React.Component {
-  state = {
-    listCompare: []
-  };
-
-  handleChooseItem = itemIdx => () => {
-    const { listCompare } = this.state;
-
-    const indexOfItemInArray = listCompare.indexOf(itemIdx);
-
-    if (indexOfItemInArray !== -1) {
-      listCompare.splice(indexOfItemInArray, 1);
-    } else {
-      listCompare.push(itemIdx);
-    }
-
-    this.setState({ listCompare });
-  };
-
   render() {
-    const { viewMode, items } = this.props;
-    const { listCompare } = this.state;
+    const { viewMode, items, listCompare, handleChooseItem } = this.props;
 
     let ui = [];
 
@@ -117,7 +98,7 @@ export default class TimeLine extends React.Component {
           color={mapColors[it.type]}
           key={idx}
           dot={
-            <span onClick={this.handleChooseItem(idx)}>
+            <span onClick={handleChooseItem(idx)}>
               {listCompare.includes(idx) ? (
                 <FaRegCheckCircle />
               ) : (

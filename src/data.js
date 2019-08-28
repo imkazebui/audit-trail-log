@@ -27,14 +27,14 @@ const dataGenerator = () => {
 
 export const items = [
   {
-    time: Date.now(),
+    time: Date.now() + 4,
     type: "Delete", // Insert, Update, Delete
     userName: "Phu",
     userType: "User",
     userAvatar: faker.image.avatar()
   },
   {
-    time: Date.now(),
+    time: Date.now() + 3,
     type: "Update", // Insert, Update, Delete
     userName: "Phu",
     userType: "User",
@@ -45,7 +45,7 @@ export const items = [
     }
   },
   {
-    time: Date.now(),
+    time: Date.now() + 2,
     type: "Update", // Insert, Update, Delete
     userName: "Phu",
     userType: "User",
@@ -56,7 +56,7 @@ export const items = [
     }
   },
   {
-    time: Date.now(),
+    time: Date.now() + 1,
     type: "Insert", // Insert, Update, Delete
     userName: "Admin",
     userType: "Admin",
